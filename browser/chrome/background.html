@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+
+<script type="text/javascript" src="lib/jquery-1.5.min.js"></script>
+<script type="text/javascript" src="src/app.js"></script>
+<script type="text/javascript">
+
+    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+
+        switch (request.type) {
+            case "init" : {
+                var tabId = sender.tab.id;
+                chrome.pageAction.setIcon({tabId: tabId, path: 'images/pencil.png'});
+                chrome.pageAction.setTitle({tabId: tabId, title: "ХабраЛингвист готов, mein юзер!"});
+                chrome.pageAction.show(tabId);
+
+                sendResponse({ok:true});
+            } break;
+
+            default : {
+                sendResponse({unknownAction: request.type});
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

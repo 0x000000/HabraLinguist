@@ -1,0 +1,56 @@
+div#Habralinguist {
+    display: none;
+}
+
+div#Habralinguist div#Habralinguist-Formular {
+    border: 1px solid black;
+    width: 450px;
+    height: 420px;
+    padding: 20px;
+    color: #666;
+    background-color: white;
+}
+
+div#Habralinguist div#Habralinguist-Formular span#Genosse {
+    color: #CF0000;
+    padding-left: 17px;
+    background: url(http://habrahabr.ru/i/bg-user2.gif) no-repeat 0 50%;
+}
+
+div#Habralinguist div#Habralinguist-Formular h3 {
+    margin: 25px 0 25px 0;
+    text-align: center;
+    color: #333;
+}
+
+div#Habralinguist div#Habralinguist-Formular div#Details {
+    text-align: right;
+}
+
+div#Habralinguist div#Habralinguist-Formular div.Feld {
+    margin-bottom: 10px;
+}
+
+div#Habralinguist div#Habralinguist-Formular input#Titel, div#Habralinguist-Formular textarea#Nachricht {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 440px;
+    font-style: italic;
+    color: black;
+    font-size: 14px;
+}
+
+div#Habralinguist div#Habralinguist-Formular input#Titel.error, div#Habralinguist  textarea#Nachricht.error {
+    border: 2px dashed #ff3333;
+}
+
+div#Habralinguist div#Habralinguist-Formular div#Unterschrift {
+    margin-top: 20px;
+    color: #333333;
+}
+
+div#Habralinguist div#Habralinguist-Formular div#Unterschrift button#Stempel {
+    padding: 5px;
+    float: right;
+    font-weight: bold;
+}

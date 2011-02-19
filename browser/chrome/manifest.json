@@ -1,0 +1,36 @@
+{
+  "name":           "HabraLinguist",
+  "version":        "0.8",
+  "description":    "Simple Orphus-style notifications for http://habrahabr.ru",
+
+  "permissions": [
+    "tabs",
+    "http://habrahabr.ru/*"
+  ],
+
+  "page_action": {
+    "default_icon":     "images/pencil.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches":    ["http://habrahabr.ru/*"],
+      "run_at":     "document_idle",
+      "js":         [
+        "lib/jquery-1.5.min.js",
+        "lib/simplemodal.1.4.1.min.js",
+        "lib/jaml.js",
+        "src/app.js", "src/form.js", "src/trigger.js"
+      ],
+      "css": ["src/form.css"]
+    }
+  ],
+
+  "icons": {
+    "16":   "images/pencil.png",
+    "48":   "images/logo_48.png",
+    "128":  "images/logo_128.png"
+  },
+
+  "background_page": "background.html"
+}
