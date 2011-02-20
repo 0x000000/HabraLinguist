@@ -45,7 +45,7 @@ HabraLinguist.Form = {
   validate: function() {
     var isValid = true;
 
-    jQuery('#Titel, #Nachricht').each(function() {
+    $('#Titel, #Nachricht').each(function() {
       var elem = $(this);
 
       if (elem.val().trim().length == 0) {
@@ -61,14 +61,14 @@ HabraLinguist.Form = {
   },
 
   sendMessage: function() {
-    jQuery.post('http://habrahabr.ru/ajax/messages/add/',
-        jQuery('#Schreiben').serialize());
+    $.post('http://habrahabr.ru/ajax/messages/add/',
+        $('#Schreiben').serialize());
   },
 
 
   build: function() {
     if (!this.isRegistred) {
-      jQuery('body').append('<div id="Habralinguist"></div>');
+      $('body').append('<div id="Habralinguist"></div>');
 
       this.registerTemplate();
       this.isRegistred = true;
@@ -76,9 +76,9 @@ HabraLinguist.Form = {
 
     var pageData = HabraLinguist.getPageData();
 
-    jQuery('#Habralinguist').html(Jaml.render('Habralinguist-Formular', pageData));
+    $('#Habralinguist').html(Jaml.render('Habralinguist-Formular', pageData));
 
-    jQuery("#Stempel").click(function() {
+    $("#Stempel").click(function() {
       if (HabraLinguist.Form.validate()) {
         HabraLinguist.Form.sendMessage();
         HabraLinguist.Form.hide();
@@ -90,7 +90,7 @@ HabraLinguist.Form = {
   show: function() {
     this.build();
 
-    jQuery('#Habralinguist').modal({
+    $('#Habralinguist').modal({
       zIndex: 3001,
       overlayCss: {backgroundColor:"#ccc"},
 
@@ -109,6 +109,6 @@ HabraLinguist.Form = {
 
   hide: function() {
     HabraLinguist.Form.isShown = false;
-    jQuery.modal.close();
+    $.modal.close();
   }
 };
