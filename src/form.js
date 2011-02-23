@@ -1,15 +1,17 @@
-HabraLinguist.Form = {
+var HabraLinguistForm = function(getPageData) {
 
-  isRegistred:  false,
-  isShown:      false,
+  var self = {};
 
-  errorMessage: function(topic, selection) {
-    return 'В посте <a href="' + topic.url + '">' + topic.title + '</a>, вы писали:' +
-        '\n\n<blockquote>' + selection + '</blockquote>. \n\nПохоже, вы ошиблись.'
-  },
+  var isRegistred = false;
+  self.isShown = false;
 
-  registerTemplate: function() {
+  var registerTemplate = function() {
     Jaml.register('Habralinguist-Formular', function(data) {
+
+      var errorMessage = function(topic, selection) {
+        return 'В посте <a href="' + topic.url + '">' + topic.title + '</a>, вы писали:' +
+            '\n\n<blockquote>' + selection + '</blockquote>. \n\nПохоже, вы ошиблись.'
+      };
 
       div({id:'Habralinguist-Formular'},
           div({id:'Details'},
@@ -28,7 +30,7 @@ HabraLinguist.Form = {
               div({cls:'Feld'},
                   label({'for':'Nachricht'}, 'С негодованием и осуждением, сообщаем:'),
                   textarea({id:'Nachricht', name:'message[text]', cols:20, rows:7},
-                      HabraLinguist.Form.errorMessage(data.topic, data.selection))),
+                      errorMessage(data.topic, data.selection))),
 
               div({cls:'Feld'}, 'Товарищ! Соблюдение чистоты русского языка — основа построения светлого ' +
                   'коммунистического будущего! К игнорирующим правила родной речи будут применены самые строгие меры!')),
@@ -39,10 +41,11 @@ HabraLinguist.Form = {
 
     });
 
-    this.isRegistred = true;
-  },
+    isRegistred = true;
+  };
 
-  validate: function() {
+
+  var validate = function() {
     var isValid = true;
 
     $('#Titel, #Nachricht').each(function() {
@@ -58,37 +61,37 @@ HabraLinguist.Form = {
     });
 
     return isValid;
-  },
+  };
 
-  sendMessage: function() {
-    $.post('http://habrahabr.ru/ajax/messages/add/',
-        $('#Schreiben').serialize());
-  },
+  var sendMessage = function() {
+    $.post('http://habrahabr.ru/ajax/messages/add/', $('#Schreiben').serialize());
+  };
 
-
-  build: function() {
-    if (!this.isRegistred) {
+  var build = function() {
+    if (!isRegistred) {
       $('body').append('<div id="Habralinguist"></div>');
 
-      this.registerTemplate();
-      this.isRegistred = true;
+      registerTemplate();
+      isRegistred = true;
     }
 
-    var pageData = HabraLinguist.getPageData();
-
-    $('#Habralinguist').html(Jaml.render('Habralinguist-Formular', pageData));
+    $('#Habralinguist').html(Jaml.render('Habralinguist-Formular', getPageData()));
 
     $("#Stempel").click(function() {
-      if (HabraLinguist.Form.validate()) {
-        HabraLinguist.Form.sendMessage();
-        HabraLinguist.Form.hide();
+      if (validate()) {
+        sendMessage();
+        hide();
       }
     });
+  };
 
-  },
+  var hide = function() {
+    self.isShown = false;
+    $.modal.close();
+  };
 
-  show: function() {
-    this.build();
+  self.show = function() {
+    build();
 
     $('#Habralinguist').modal({
       zIndex: 3001,
@@ -98,17 +101,14 @@ HabraLinguist.Form = {
       overlayClose: true,
 
       onShow: function() {
-        HabraLinguist.Form.isShown = true;
+        self.isShown = true;
       },
 
       onClose : function() {
-        HabraLinguist.Form.hide();
+        hide();
       }
     });
-  },
+  };
 
-  hide: function() {
-    HabraLinguist.Form.isShown = false;
-    $.modal.close();
-  }
+  return self;
 };
