@@ -1,24 +1,20 @@
-var HabraLinguist = function(hWindow, hDocument) {
+var HabraLinguist = function() {
 
   var self = {};
   var form = null;
 
   self.isHabraPage = function() {
-    return hDocument.domain == "habrahabr.ru";
+    return document.domain == "habrahabr.ru";
   };
 
-  self.isLoggedUser = function() {
-    return $("div.header dl.panel-personal dt a.habrauser").length > 0;
-  };
-
-  self.isTopic = function() {
-    return $("#viva-la-w3c div.blog-title h2.blog-header").length > 0;
+  self.isTopicPageAndUserIsLogged = function() {
+    return jQuery("#comment_form").length > 0;
   };
 
   var getPageData = function() {
 
-    var topicElem = $("div.hentry h2.entry-title.single-entry-title span.topic");
-    var authorElem = $("div.vcard.author.full a.fn.nickname.url span");
+    var topicElem = jQuery("div.hentry h2.entry-title.single-entry-title span.topic");
+    var authorElem = jQuery("div.vcard.author.full a.fn.nickname.url span");
 
     return {
       author:     authorElem.html(),
@@ -33,14 +29,20 @@ var HabraLinguist = function(hWindow, hDocument) {
   var getSelection = function() {
     var selection = null;
 
-    if (hWindow.getSelection) {
-      selection = hWindow.getSelection();
+    if (window.getSelection) {
+      selection = window.getSelection();
+
+      if (jQuery.browser.mozzila) { // firefox 3.x selection bugfix
+        var range = selection.getRangeAt(0);
+        selection.removeAllRanges();
+        range.deleteContents();
+      }
     }
-    else if (hDocument.getSelection) {
-      selection = hDocument.getSelection();
+    else if (document.getSelection) {
+      selection = document.getSelection();
     }
-    else if (hDocument.selection) {
-      selection = hDocument.selection.createRange().text;
+    else if (document.selection) {
+      selection = document.selection.createRange().text;
     }
 
     return selection;
@@ -48,7 +50,7 @@ var HabraLinguist = function(hWindow, hDocument) {
 
   self.bindHotKeys = function() {
 
-    $(hDocument).keydown(function(e) {
+    jQuery(document).keydown(function(e) {
 
       if (e.ctrlKey && (e.keyCode || e.which) == 13) {
         var selection = getSelection();
