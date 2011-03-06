@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://global/locale/global.dtd">
+
+<overlay id="habralinguist"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script type='application/x-javascript'
+            src='chrome://habralinguist/content/loader.js'/>
+
+    <window id="main-window">
+        <box id="habralinguist-iconbox" width="22" height="16" align="center" pack="center" hidden="true">
+            <image id="habralinguist-icon"
+                   src="chrome://habralinguist/content/images/pencil.png"/>
+        </box>
+    </window>
+</overlay>

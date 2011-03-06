@@ -1,0 +1,3 @@
+content habralinguist chrome/content/
+overlay chrome://browser/content/browser.xul chrome://habralinguist/content/habralinguist.xul
+resource habralinguist chrome/content/
