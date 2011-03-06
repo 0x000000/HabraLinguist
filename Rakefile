@@ -54,7 +54,7 @@ namespace :pack do
 
 	task :chrome do
 		system "chromium-browser --pack-extension=#{WDIR}/tmp/chrome --pack-extension-key=#{WDIR}/browser/chrome/chrome.pem --no-message-box"
-		FileUtils.cp "#{WDIR}/tmp/chrome.crx", "#{WDIR}/bin/chrome"
+		FileUtils.cp "#{WDIR}/tmp/chrome.crx", "#{WDIR}/bin/chrome/habralinguist.crx"
 	end
 
 	task :firefox_3x do
