@@ -21,7 +21,8 @@
 
     draw: function() {
       var icon = window.document.getElementById("habralinguist-iconbox");
-      var isHabraPage = gBrowser.contentDocument.domain == "habrahabr.ru";
+      var isHabraPage = (gBrowser.contentDocument.domain == "habrahabr.ru") &&
+          (gBrowser.contentDocument.getElementById('comment_form') != null);
 
       icon.hidden = !isHabraPage;
     }
